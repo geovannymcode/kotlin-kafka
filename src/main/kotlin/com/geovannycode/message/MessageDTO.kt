@@ -4,7 +4,6 @@ data class MessageRequest(
     val content: String
 )
 
-
 data class MessageResponse(
     val id: String,
     val content: String,

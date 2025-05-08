@@ -1,6 +1,5 @@
 package com.geovannycode
 
-import com.geovannycode.message.CustomMessage
 import com.geovannycode.message.MessageProducer
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.any
@@ -10,7 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate
 
 class MessageProducerTests {
     private val topicName = "test-topic"
-    private val kafkaTemplate = mock<KafkaTemplate<String, CustomMessage>>()
+    private val kafkaTemplate = mock<KafkaTemplate<String, String>>()
     private val messageProducer = MessageProducer(kafkaTemplate, topicName)
 
     @Test

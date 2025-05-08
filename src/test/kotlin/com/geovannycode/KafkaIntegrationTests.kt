@@ -19,7 +19,7 @@ class KafkaIntegrationTests {
     private lateinit var messageProducer: MessageProducer
 
     @Autowired
-    private lateinit var consumerFactory: ConsumerFactory<String, CustomMessage>
+    private lateinit var consumerFactory: ConsumerFactory<String, String>
 
     @Test
     fun `el mensaje enviado debe ser recibido por el consumidor`() {
@@ -38,7 +38,7 @@ class KafkaIntegrationTests {
                 val records = KafkaTestUtils.getRecords(consumer)
                 assert(records.count() > 0)
                 val record = records.first()
-                assert(record.value().content == content)
+                assert(record.value() == content)
             }
     }
 }
