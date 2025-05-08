@@ -2,10 +2,12 @@ package com.geovannycode.message
 
 import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
+import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 @Service
 class MessageConsumer(private val messageRepository: MessageRepository) {
@@ -15,18 +17,22 @@ class MessageConsumer(private val messageRepository: MessageRepository) {
 
     @KafkaListener(
         topics = ["\${spring.kafka.topic.name}"],
-        groupId = "\${spring.kafka.consumer.group-id}",
-        errorHandler = "kafkaErrorHandler"
+        groupId = "\${spring.kafka.consumer.group-id}"
     )
-    fun processMessage(message: Message) {
-        logger.info("Mensaje recibido: {}, ID: {}, Tiempo: {}",
-            message.content, message.messageId, message.timestamp)
+    fun listen(@Payload content: String) {
+        logger.info("Mensaje recibido: {}", content)
 
         try {
 
-            val formattedTime = dateFormatter.format(Instant.ofEpochMilli(message.timestamp))
-            val processedMessage = message.copy(content = message.content.uppercase())
-            messageRepository.save(processedMessage)
+            val message = CustomMessage(
+                content = content.uppercase(),
+                messageId = UUID.randomUUID().toString()
+            )
+
+            val instant = Instant.ofEpochMilli(message.timestamp)
+            val formattedTime = dateFormatter.format(instant)
+
+            messageRepository.save(message)
 
             logger.info("Mensaje procesado exitosamente a las {}", formattedTime)
         } catch (e: Exception) {

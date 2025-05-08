@@ -8,22 +8,19 @@ import java.util.UUID
 
 @Service
 class MessageProducer(
-    private val kafkaTemplate: KafkaTemplate<String, Message>,
+    private val kafkaTemplate: KafkaTemplate<String, String>,
     @Value("\${spring.kafka.topic.name}") private val topicName: String
 ) {
     private val logger = LoggerFactory.getLogger(MessageProducer::class.java)
 
-    /**
-     * Envía un mensaje al tópico de Kafka
-     */
-    fun sendMessage(content: String): Message {
-        val message = Message(
+    fun sendMessage(content: String): CustomMessage {
+        val message = CustomMessage(
             content = content,
             messageId = UUID.randomUUID().toString()
         )
 
-        kafkaTemplate.send(topicName, message)
-        logger.info("Mensaje enviado al tópico {}: {}", topicName, message)
+        kafkaTemplate.send(topicName, message.content)
+        logger.info("Mensaje enviado al tópico {}: {}", topicName, message.content)
 
         return message
     }

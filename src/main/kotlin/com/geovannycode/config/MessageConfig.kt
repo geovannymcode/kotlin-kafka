@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.config.TopicBuilder
 import org.springframework.kafka.listener.KafkaListenerErrorHandler
+import org.springframework.kafka.support.converter.JsonMessageConverter
+import org.springframework.kafka.support.converter.RecordMessageConverter
 
 @Configuration
 class MessageConfig {
@@ -25,11 +27,13 @@ class MessageConfig {
             .build()
             .also { logger.info("Tópico {} configurado correctamente", topicName) }
     }
+
     @Bean
     fun kafkaErrorHandler(): KafkaListenerErrorHandler {
         return KafkaListenerErrorHandler { message, exception ->
             logger.error("Error al procesar mensaje: {}", message.payload)
             logger.error("Excepción: {}", exception.cause?.message, exception.cause)
+            message.payload ?: ""
         }
     }
 }

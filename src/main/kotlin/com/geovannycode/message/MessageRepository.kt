@@ -10,7 +10,7 @@ class MessageRepository(private val jdbcTemplate: JdbcTemplate) {
     private val logger = LoggerFactory.getLogger(MessageRepository::class.java)
 
 
-    fun save(message: Message): Boolean {
+    fun save(message: CustomMessage): Boolean {
         return try {
             jdbcTemplate.update(
                 """
@@ -29,7 +29,7 @@ class MessageRepository(private val jdbcTemplate: JdbcTemplate) {
         }
     }
 
-    fun findById(messageId: String): Message? {
+    fun findById(messageId: String): CustomMessage? {
         return try {
             jdbcTemplate.queryForObject(
                 """
@@ -38,7 +38,7 @@ class MessageRepository(private val jdbcTemplate: JdbcTemplate) {
                 WHERE message_id = ?
                 """,
                 { rs, _ ->
-                    Message(
+                    CustomMessage(
                         content = rs.getString("content"),
                         messageId = rs.getString("message_id"),
                         timestamp = rs.getTimestamp("created_at").time
@@ -52,7 +52,7 @@ class MessageRepository(private val jdbcTemplate: JdbcTemplate) {
         }
     }
 
-    fun findAll(): List<Message> {
+    fun findAll(): List<CustomMessage> {
         return try {
             jdbcTemplate.query(
                 """
@@ -61,7 +61,7 @@ class MessageRepository(private val jdbcTemplate: JdbcTemplate) {
                 ORDER BY created_at DESC
                 """,
                 { rs, _ ->
-                    Message(
+                    CustomMessage(
                         content = rs.getString("content"),
                         messageId = rs.getString("message_id"),
                         timestamp = rs.getTimestamp("created_at").time

@@ -1,7 +1,7 @@
 package com.geovannycode.web.controller
 
 import com.geovannycode.message.ApiResponse
-import com.geovannycode.message.Message
+import com.geovannycode.message.CustomMessage
 import com.geovannycode.message.MessageProducer
 import com.geovannycode.message.MessageRepository
 import com.geovannycode.message.MessageRequest
@@ -37,7 +37,7 @@ class MessageController(
 
         return try {
             val message = messageProducer.sendMessage(request.content)
-            ResponseEntity.ok(ApiResponse(
+            ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse(
                 success = true,
                 message = "Mensaje enviado correctamente",
                 data = mapToResponse(message)
@@ -91,7 +91,7 @@ class MessageController(
     }
 
 
-    private fun mapToResponse(message: Message): MessageResponse {
+    private fun mapToResponse(message: CustomMessage): MessageResponse {
         return MessageResponse(
             id = message.messageId,
             content = message.content,

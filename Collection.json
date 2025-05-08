@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "c5e77de8-1c8c-4ab7-a8d6-35f741f3d2b8",
+		"name": "Kotlin Kafka API",
+		"description": "Colección para probar la API de mensajes Kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Enviar mensaje",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"Este es un mensaje de prueba\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"messages"
+					]
+				},
+				"description": "Envía un nuevo mensaje al tópico de Kafka"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los mensajes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/messages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"messages"
+					]
+				},
+				"description": "Recupera todos los mensajes procesados"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener mensaje por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/messages/{{message_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"messages",
+						"{{message_id}}"
+					]
+				},
+				"description": "Recupera un mensaje específico por su ID"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Capturar el ID del mensaje cuando se crea uno nuevo",
+					"if (pm.response.code === 200 && pm.request.method === \"POST\") {",
+					"    var jsonData = pm.response.json();",
+					"    if (jsonData.success && jsonData.data && jsonData.data.id) {",
+					"        pm.environment.set(\"message_id\", jsonData.data.id);",
+					"        console.log(\"Message ID guardado: \" + jsonData.data.id);",
+					"    }",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "message_id",
+			"value": ""
+		}
+	]
+}
