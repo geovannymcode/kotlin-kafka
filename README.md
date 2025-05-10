@@ -103,17 +103,12 @@ sql:
 
 ## 🚀 Cómo Ejecutar
 
-1. Levantar Kafka y Zookeeper con Docker Compose:
-   ```bash
-   docker-compose -f compose.yml up
-   ```
-
-2. Ejecutar la aplicación:
+1. Ejecutar la aplicación:
    ```bash
    ./gradlew bootRun
    ```
 
-3. Probar endpoints con [Postman](https://www.postman.com/) o similar:
+2. Probar endpoints con [Postman](https://www.postman.com/) o similar:
     - Enviar mensaje: `POST /api/messages`
     - Consultar mensajes: `GET /api/messages`
     - Consultar por ID: `GET /api/messages/{id}`
