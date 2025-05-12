@@ -154,3 +154,6 @@ sql:
 - 🌐 [geovannycode.com](https://www.geovannycode.com)
 - 🐦 [@geovannycode](https://twitter.com/geovannycode)
 - 💼 [LinkedIn](https://www.linkedin.com/in/geovannycode)
+
+🔹 Licencia
+Este proyecto está disponible bajo la licencia MIT. Libre de usar, modificar y compartir.
