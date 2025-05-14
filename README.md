@@ -147,6 +147,12 @@ sql:
 - [Apache Kafka Docs](https://kafka.apache.org/documentation/)
 - [Kafkalytic Plugin](https://plugins.jetbrains.com/plugin/11946-kafkalytic)
 
+## 🔹 Artículo relacionado
+
+Lee la guía completa de construcción y explicación:
+
+👉 [https://geovannycode.com/arquitectura-orientada-a-eventos-con-kotlin-spring-boot-y-kafka/](https://geovannycode.com/arquitectura-orientada-a-eventos-con-kotlin-spring-boot-y-kafka/)
+
 ## 🧑‍💻 Autor
 
 **Geovanny Mendoza**
@@ -155,5 +161,6 @@ sql:
 - 🐦 [@geovannycode](https://twitter.com/geovannycode)
 - 💼 [LinkedIn](https://www.linkedin.com/in/geovannycode)
 
-🔹 Licencia
+## 🔹 Licencia
+
 Este proyecto está disponible bajo la licencia MIT. Libre de usar, modificar y compartir.
